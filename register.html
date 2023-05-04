@@ -7,16 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Register</h1>
-    <p>If you want to generate your password click on "Generate password" button.</p>
-    <button id="genPass">Generate password</button><br>
-    <br>
-    <label for="txtUName"><b>Username</b></label><br>
-    <input type="text" placeholder="Enter username" id="txtUName" required><br>
-    <label for="password"><b>Password</b></label><br>
-    <input type="text" placeholder="Enter Password" id="password" required><br>
-    <br> 
-    <button type="button" id="register">Register</button>
+    <link rel="stylesheet" href="./CSS/registerStyles.css">
+    <div class="row">
+        <h1>Register</h1>
+        <p>If you want to generate your password click on "Generate password" button.</p>
+        <button id="genPass" class="Btn">Generate password</button><br>
+        <br>
+        <label for="txtUName" class="registerLabel">Username</label><br>
+        <input type="text" placeholder="Enter username" id="txtUName" class="inputField" required><br>
+        <label for="password" class="registerLabel">Password</label><br>
+        <input type="text" placeholder="Enter Password" id="password" class="inputField" required><br>
+        <br> 
+        <button type="button" id="register" class="Btn">Register</button>
+    </div>
     <script src="./logic.js"></script>
 </body>
 </html>

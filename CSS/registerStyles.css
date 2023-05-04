@@ -1,0 +1,54 @@
+body{
+    background-image: url("../Pictures/flower-reg.jpg");
+    background-repeat: no-repeat;
+    background-position-x: left;
+    background-position-y: -230px;
+}
+.row{
+    text-align: center;
+    margin-top: 50px !important;
+    background-color: white;
+    border: solid #023020;
+    width: 600px;
+    height: 450px;
+    margin: auto;
+    padding: 15px;
+}
+.Btn{
+    height: 40px;
+    width: 180px;
+}
+.Btn:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+#register{
+    height: 40px;
+    width: 180px;
+    background-color: #023020;
+    color:white;
+    border-style: hidden;
+}
+#genPass{
+    background-color: white;
+    border-style: solid;
+    border-color: #023020;
+}
+.inputField{
+    height: 30px;
+    width: 220px;
+    padding: 10px;
+}
+.registerLabel{
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+@media only screen and (max-width: 530px){
+    .row{
+        background-color: none;
+        border: none;
+        margin: auto !important;
+        width: 90%; 
+    }
+}
