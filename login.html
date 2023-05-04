@@ -7,12 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Login</h1>
-    <label for="txtUName"><b>Username</b></label><br>
-    <input type="text" placeholder="Enter Username" id="txtUName" required><br>
-    <label for="password"><b>Password</b></label><br>
-    <input type="text" placeholder="Enter Password" id="password" required><br><br>
-    <button type="button" id="login">Log in</button>
+    <link rel="stylesheet" href="./CSS/loginStyles.css"> 
+    <div class="row">
+        <h1>Login</h1>
+        <label for="txtUName" class="loginLabel"><b>Username</b></label><br>
+        <input type="text" placeholder="Enter Username" id="txtUName" class="inputField" required><br>
+        <label for="password" class="loginLabel"><b>Password</b></label><br>
+        <input type="text" placeholder="Enter Password" id="password" class="inputField" required><br><br>
+        <button type="button" id="loginPageBtn">Sign in</button>
+    </div>
     <script src = "./logic.js"></script>
 </body>
 </html>

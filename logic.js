@@ -11,36 +11,36 @@
  //Logic for Home screen
  if( pathTwo == "/home.html"){
     let btn = document.getElementsByTagName("button"); 
-    btn[0].addEventListener("click", function(){
-        let searchTxt= document.getElementById("opt").value;
-        if(searchTxt == "Sign in" || searchTxt == "sign in"){
-            window.location.assign(path + "/login.html");
-        }
-        else if(searchTxt == "Sign up" || searchTxt == "sign up"){
-            window.location.assign(path + "/register.html");
-        }
-        else if(searchTxt == "View account details" || searchTxt == "view account details"){
-            window.location.assign(path + "/view.html");
-        }     
-    }); 
-    for(let i = 1; i<btn.length; i++){   
+    // btn[0].addEventListener("click", function(){
+    //     let searchTxt= document.getElementById("searchValue").value;
+    //     if(searchTxt == "Sign in" || searchTxt == "sign in"){
+    //         window.location.assign(path + "/login.html");
+    //     }
+    //     else if(searchTxt == "Sign up" || searchTxt == "sign up"){
+    //         window.location.assign(path + "/register.html");
+    //     }
+    //     else if(searchTxt == "View account details" || searchTxt == "view account details"){
+    //         window.location.assign(path + "/view.html");
+    //     }     
+    // }); 
+    for(let i = 0; i<btn.length; i++){   
             btn[i].addEventListener("click", function(){
-            if(i == 1){
+            if(i == 0){
                  window.location.assign(path + "/login.html");
             }
-            else if(i == 2){
+            else if(i == 1){
                 window.location.assign(path + "/register.html");
             }
-            else if(i == 3){
-                window.location.assign(path + "/view.html");
-            }
+            // else if(i == 3){
+            //     window.location.assign(path + "/view.html");
+            // }
         }); 
     } 
 }
 
 //Logic for Login screen 
 else if(pathTwo == "/login.html"){
-    let btnLogin = document.getElementById("login");
+    let btnLogin = document.getElementById("loginPageBtn");
     btnLogin.addEventListener("click", function(){
         let user = document.getElementById("txtUName").value;
         let passw = document.getElementById("password").value;
