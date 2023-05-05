@@ -110,7 +110,7 @@ else if(pathTwo == "/register.html"){
 //Logic for Generate screen
 else if(pathTwo =="/generate.html"){
     let btn = document.getElementsByClassName("generate");
-    const mixed = "@!#$%^&*_+><?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    //const mixed = "@!#$%^&*_+><?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     const symbols = "@!#$%^&*_+><?";
     const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const numbers = "0123456789";
@@ -167,7 +167,8 @@ async function readFile(u, p){
     return alert("Username or password incorect");
 }
 
-//Function to get generate random password. Returns string of either random characters, numbers, symbols or mix of all three
+/*Function to get generate random password. Returns string of either random characters, numbers, symbols or mix of all three
+Less secure option as it uses Math.Random()*/
 function getRandomPassword(passwordType){
     let str="";
     let passLength =10;
@@ -177,6 +178,16 @@ function getRandomPassword(passwordType){
     }
     return str; 
 }
+
+// function getRandomNumbers(){
+//     let str="";
+//     const randNums = new Uint32Array(1);
+//     crypto.getRandomValues( randNums)
+//     randNums.forEach(n => {
+//         str += n;
+//     });
+//     return str;
+// }
  
 //Function to create a HTML table elements and append it to the <table>
     async function createTable(){

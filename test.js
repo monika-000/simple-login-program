@@ -1,4 +1,4 @@
-ic for Generate screen
+
 else if(pathTwo =="/generate.html"){
     let btn = document.getElementsByClassName("generate");
     const mixed = "@!#$%^&*_+><?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -27,7 +27,7 @@ else if(pathTwo =="/generate.html"){
         window.location.assign(path + "/register.html"); 
     });
 }
-
+//Less secure option with Math.random()
 function getRandomPassword(passwordType){
     let str="";
     let passLength =10;
@@ -38,6 +38,7 @@ function getRandomPassword(passwordType){
     return str; 
 }
 
+//More secure ways with crypto.getRandomValue();
 function getRandomNumbers(){
     let str="";
     const randNums = new Uint32Array(1);
@@ -49,21 +50,26 @@ function getRandomNumbers(){
 }
 function getRandomMixed(){
     let str="";
-    let asciiNum = [];
-    //Create array consisting o numbers hat represent ASCII values (numbers, lette, symbols)
-    for(let i = 33; i<126; i++){
-        asciiNum.push(i);
-    }
-    
-    //const randNums = new Uint32Array(1);
-   
+    //Create array consisting o numbers that represent ASCII values (numbers, letter, symbols)
+    // for(let i = 34; i<126; i++){
+    //     asciiNum.push(i);
+    // }
+
+    //asciiNum= Uint8Array.from(asciiNum);
+    const randPasswordMix = new Uint8Array(256);
     //Generate cryptographically random values 
-    crypto.getRandomValues(asciiNum)
+    crypto.getRandomValues(randPasswordMix)
    
-    //Translate random values to ASCIIsymbols and return string 
-    //String.fromCharCode(65,66,67); // returns 'ABC'
-    randNums.forEach(n => {
-        str += n;
+    //Translate random values to UTF-16 symbols and return string 
+   randPasswordMix.forEach(n => {
+        debugger;
+        if(33 < n && n < 126){
+            if(str.length == 10){
+                return str;
+            }
+            str += String.fromCharCode(n);
+        } 
+
     });
     return str;
 }
