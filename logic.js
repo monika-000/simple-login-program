@@ -110,12 +110,10 @@ else if(pathTwo == "/register.html"){
 //Logic for Generate screen
 else if(pathTwo =="/generate.html"){
     let btn = document.getElementsByClassName("generate");
-    let symbols = "@!#$%^&*()_+><?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    //let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    // new RegExp("[a-zA-Z]");
-    // characters = characters.toString();
-    let numbers = "0123456789";
+    const mixed = "@!#$%^&*_+><?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const symbols = "@!#$%^&*_+><?";
+    const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numbers = "0123456789";
 
     for(let i =0; i<btn.length;i++){
         btn[i].addEventListener("click", function(){
