@@ -37,7 +37,6 @@
         }); 
     } 
 }
-
 //Logic for Login screen 
 else if(pathTwo == "/login.html"){
     let btnLogin = document.getElementById("loginPageBtn");
@@ -46,28 +45,8 @@ else if(pathTwo == "/login.html"){
         let passw = document.getElementById("password").value;
         readFile(user,passw);
     });
-//Function to read from accounts.txt file. It take s two parameters: username and password form input elements
-    async function readFile(e, p){  
-        [fileHandle] = await window.showOpenFilePicker();
-        const file = await fileHandle.getFile();
-        const contents = await file.text();
-        let lines = contents.split("\n"); 
-        let obj = {};
-        for (const i of lines) {  
-            let items = i.split(" "); 
-            for (let i=0; i<items.length; i++){
-                items[i] = items[i].trim();
-            } 
-            obj = {userField: items[0], passField: items[1]};   
-            details.push(obj); 
-            if(e === obj.userField && p === obj.passField){
-                return alert("Welcome " + obj.userField);
-           }
-        } 
-        return alert("Username or password incorect");
-    }
-} 
 
+}
 //Logic for Register screen 
 else if(pathTwo == "/register.html"){
     let btnGenerate = document.getElementById("genPass");
@@ -99,6 +78,7 @@ else if(pathTwo == "/register.html"){
                 }
                    
             await saveFile(text);
+            //Adds 2s delay before exiting the registration page
             await setTimeout( function(){
                 let url = window.location.pathname; 
                 let lastIndex = url.lastIndexOf("/"); 
@@ -108,7 +88,7 @@ else if(pathTwo == "/register.html"){
         }
     });
 
-//Function to get save new user details to accounts.txt file
+//Function to save new user details to accounts.txt file
     async function saveFile(data){
         let contents = new Blob([data.trim()], {type:"text/plain"});
         const handle = await window.showSaveFilePicker();
@@ -130,17 +110,24 @@ else if(pathTwo == "/register.html"){
 //Logic for Generate screen
 else if(pathTwo =="/generate.html"){
     let btn = document.getElementsByClassName("generate");
+    let symbols = "@!#$%^&*()_+><?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    //let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    // new RegExp("[a-zA-Z]");
+    // characters = characters.toString();
+    let numbers = "0123456789";
+
     for(let i =0; i<btn.length;i++){
         btn[i].addEventListener("click", function(){
             let password =""
             if(i==0){
-                password = getRandomNumbers();
+                password = getRandomPassword(numbers);
             }
             else if(i==1){
-                password = getRandomLetter();
+                password = getRandomPassword(characters);
             }
             else if(i==2){
-                password = getRandomSymbols();
+                password = getRandomPassword(symbols);
             }
             document.getElementById("demo").innerHTML = password;
             sessionStorage.setItem("password", (password));
@@ -150,41 +137,7 @@ else if(pathTwo =="/generate.html"){
         btnReg.addEventListener("click", function(){
         window.location.assign(path + "/register.html"); 
     });
-//Function to get 10 random numbers. Returns string of random symbols
-    function getRandomSymbols(){
-        let str="";
-        let symbols = "@!#$%^&*()_+><?";
-        let passLength =10;
-        for(let i=0; i<passLength; i++){
-            let randomPass = Math.floor(Math.random() * symbols.length);
-            str +=symbols.substring(randomPass, randomPass + 1);
-        }
-        return str; 
-    }
-//Function to get 10 random numbers. Returns string of random letters.
-    function getRandomLetter(){
-        let str="";
-        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let passLength =10;
-        for(let i=0; i<passLength; i++){
-            let randomPass = Math.floor(Math.random() * characters.length);
-            str +=characters.substring(randomPass, randomPass + 1);
-        }
-        return str;
-    }
-//Function to get 10 random numbers. Returns string of random numbers.
-    function getRandomNumbers(){
-        let str="";
-        let numbers = "0123456789"
-        let passLength =10;
-        for(let i=0; i<passLength; i++){
-            let randomPass = Math.floor(Math.random() * numbers.length);
-            str += numbers.substring(randomPass, randomPass + 1);
-        }
-        return str;
-    }   
 }
-
 // Logic for View screen
 else if(pathTwo == "/view.html"){
     let btnShow = document.getElementById("show");
@@ -192,6 +145,41 @@ else if(pathTwo == "/view.html"){
         await readFile();
         createTable();
     });
+}
+
+//FUNCTIONS
+//Function to read from accounts.txt file. It take s two parameters: username and password form input elements
+async function readFile(u, p){  
+    [fileHandle] = await window.showOpenFilePicker();
+    const file = await fileHandle.getFile();
+    const contents = await file.text();
+    let lines = contents.split("\n"); 
+    let obj = {};
+    for (const i of lines) {  
+        let items = i.split(" "); 
+        for (let i=0; i<items.length; i++){
+            items[i] = items[i].trim();
+        } 
+        obj = {userField: items[0], passField: items[1]};   
+        details.push(obj); 
+        if(u === obj.userField && p === obj.passField){
+            return alert("Welcome " + obj.userField);
+       }
+    } 
+    return alert("Username or password incorect");
+}
+
+//Function to get generate random password. Returns string of either random characters, numbers, symbols or mix of all three
+function getRandomPassword(passwordType){
+    let str="";
+    let passLength =10;
+    for(let i=0; i<passLength; i++){
+        let randomPass = Math.floor(Math.random() * passwordType.length);
+        str +=passwordType.substring(randomPass, randomPass + 1);
+    }
+    return str; 
+}
+ 
 //Function to create a HTML table elements and append it to the <table>
     async function createTable(){
         for (let i=0; i<details.length -1;i++) {
@@ -208,7 +196,6 @@ else if(pathTwo == "/view.html"){
             table.appendChild(tr);
         }
     }
-}
 
  //Function to read from accounts.txt file
 async function readFile(){ 
@@ -224,4 +211,3 @@ async function readFile(){
         } 
     }
 
- 
