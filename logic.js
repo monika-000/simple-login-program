@@ -88,25 +88,6 @@ else if(pathTwo == "/register.html"){
             }, 2000); 
         }
     });
-
-//Function to save new user details to accounts.txt file
-    async function saveFile(data){
-        let contents = new Blob([data.trim()], {type:"text/plain"});
-        const handle = await window.showSaveFilePicker();
-        const writable = await handle.createWritable();
-        await writable.write(contents);
-        await writable.close();
-    }
-    let input = document.getElementsByTagName("input");
-    function isValid(){
-        let valid = false;
-        for(let i=0; i<input.length; i++){ 
-            if(input[i].value == ""){
-                valid = true;
-            }
-        }
-        return valid; 
-    }
 }
 //Logic for Generate screen
 else if(pathTwo =="/generate.html"){
@@ -128,11 +109,12 @@ else if(pathTwo =="/generate.html"){
     } 
 
     btnReg.addEventListener("click", function(){
-    window.location.assign(path + "/register.html"); 
+        window.location.assign(path + "/register.html"); 
     });
 }
-// Logic for View screen
+// Logic for member screen
 else if(pathTwo == "/view.html"){
+    let memberName = sessionStorage.getItem("memberName")
     let btnShow = document.getElementById("show");
     btnShow.addEventListener("click", async function(){
         await readFile();
@@ -156,12 +138,33 @@ async function readFile(u, p){
         obj = {userField: items[0], passField: items[1]};   
         details.push(obj); 
         if(u === obj.userField && p === obj.passField){
-            return alert("Welcome " + obj.userField);
-       }
+            debugger;
+            alert("Welcome " + obj.userField);
+            sessionStorage.setItem("memberName", (obj.userField));
+            window.location.assign(path, "/memberHome.html");
+            return;
+        }
     } 
     return alert("Username or password incorect");
 }
-
+//Function to save new user details to accounts.txt file
+async function saveFile(data){
+    let contents = new Blob([data.trim()], {type:"text/plain"});
+    const handle = await window.showSaveFilePicker();
+    const writable = await handle.createWritable();
+    await writable.write(contents);
+    await writable.close();
+}
+let input = document.getElementsByTagName("input");
+function isValid(){
+    let valid = false;
+    for(let i=0; i<input.length; i++){ 
+        if(input[i].value == ""){
+            valid = true;
+        }
+    }
+    return valid; 
+}
 /*Functon to generate random alphanumeric password (symbols, letters, numbers). Returns string of random characters, numbers and symbols.
 More secure option as it uses crypto.getRandomValues() togenerate cryptologically strong random values*/
 function getRandomMixed(){
@@ -183,8 +186,7 @@ function getRandomMixed(){
     });
     return str;
 }
-
- /*Functon to generate random numeric password. Returns string of random numbers.
+/*Functon to generate random numeric password. Returns string of random numbers.
 More secure option as it uses crypto.getRandomValues() togenerate cryptologically strong random values*/
 function getRandomNumbers(){
     let str="";
@@ -195,7 +197,6 @@ function getRandomNumbers(){
     });
     return str;
 }
-
 /*Function to get generate random password. Returns string of either random characters, numbers, symbols or mix of all three
 Less secure option as it uses Math.Random()*/
 // function getRandomPassword(passwordType){
@@ -224,18 +225,3 @@ Less secure option as it uses Math.Random()*/
             table.appendChild(tr);
         }
     }
-
- //Function to read from accounts.txt file
-// async function readFile(){ 
-//     [fileHandle] = await window.showOpenFilePicker();
-//     const file = await fileHandle.getFile();
-//     const contents = await file.text();
-//     let lines = contents.split("\n"); 
-//     let obj = {};
-//     for (const i of lines) {  
-//         let items = i.split(" ");
-//             obj = {userField: items[0], passField: items[1]};
-//             details.push(obj);
-//         } 
-// }
-
