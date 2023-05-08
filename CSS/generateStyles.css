@@ -1,0 +1,21 @@
+
+#content{
+    text-align: center;
+    margin-top: 150px;
+}
+.generate{
+    margin-right: 5px;
+    margin-left: 5px;
+    height: 40px;
+    width: 180px;
+    margin-bottom: 20px;
+}
+.generate:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);;
+}
+#register{
+    background-color: #023020;
+    color:white;
+    border-style: hidden;
+    margin-top: 20px;
+}
