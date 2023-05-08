@@ -109,31 +109,25 @@ else if(pathTwo == "/register.html"){
 }
 //Logic for Generate screen
 else if(pathTwo =="/generate.html"){
-    let btn = document.getElementsByClassName("generate");
-    //const mixed = "@!#$%^&*_+><?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    const symbols = "@!#$%^&*_+><?";
-    const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const numbers = "0123456789";
-
-    for(let i =0; i<btn.length;i++){
-        btn[i].addEventListener("click", function(){
-            let password =""
-            if(i==0){
-                password = getRandomPassword(numbers);
+    let generateBtn = document.getElementsByClassName("generate");
+    let btnReg = document.getElementById("register");
+    let password =""
+    
+    for(let i = 0; i < generateBtn.length; i++){
+        generateBtn[i].addEventListener("click", function(){
+            if(i == 0){
+                password = getRandomNumbers();
             }
-            else if(i==1){
-                password = getRandomPassword(characters);
+            else if(i == 1){
+                password = getRandomMixed();
             }
-            else if(i==2){
-                password = getRandomPassword(symbols);
-            }
-            document.getElementById("demo").innerHTML = password;
+            document.getElementById("generatedPassword").innerText = password;
             sessionStorage.setItem("password", (password));
         });
-     }
-       let btnReg = document.getElementById("register")
-        btnReg.addEventListener("click", function(){
-        window.location.assign(path + "/register.html"); 
+    } 
+
+    btnReg.addEventListener("click", function(){
+    window.location.assign(path + "/register.html"); 
     });
 }
 // Logic for View screen
@@ -167,28 +161,52 @@ async function readFile(u, p){
     return alert("Username or password incorect");
 }
 
-/*Function to get generate random password. Returns string of either random characters, numbers, symbols or mix of all three
-Less secure option as it uses Math.Random()*/
-function getRandomPassword(passwordType){
+/*Functon to generate random alphanumeric password (symbols, letters, numbers). Returns string of random characters, numbers and symbols.
+More secure option as it uses crypto.getRandomValues() togenerate cryptologically strong random values*/
+function getRandomMixed(){
     let str="";
-    let passLength =10;
-    for(let i=0; i<passLength; i++){
-        let randomPass = Math.floor(Math.random() * passwordType.length);
-        str +=passwordType.substring(randomPass, randomPass + 1);
-    }
-    return str; 
+    const randPasswordMix = new Uint8Array(256);
+
+    //Generate cryptographically random values 
+    crypto.getRandomValues(randPasswordMix)
+   
+    //Translate random values to UTF-16 symbols and return string 
+    randPasswordMix.forEach(n => {
+        if(33 < n && n < 126){
+            if(str.length == 10){
+                return str;
+            }
+            str += String.fromCharCode(n);
+        } 
+
+    });
+    return str;
 }
 
-// function getRandomNumbers(){
+ /*Functon to generate random numeric password. Returns string of random numbers.
+More secure option as it uses crypto.getRandomValues() togenerate cryptologically strong random values*/
+function getRandomNumbers(){
+    let str="";
+    const randNums = new Uint32Array(1);
+    crypto.getRandomValues( randNums)
+    randNums.forEach(n => {
+        str += n;
+    });
+    return str;
+}
+
+/*Function to get generate random password. Returns string of either random characters, numbers, symbols or mix of all three
+Less secure option as it uses Math.Random()*/
+// function getRandomPassword(passwordType){
 //     let str="";
-//     const randNums = new Uint32Array(1);
-//     crypto.getRandomValues( randNums)
-//     randNums.forEach(n => {
-//         str += n;
-//     });
-//     return str;
+//     let passLength =10;
+//     for(let i=0; i<passLength; i++){
+//         let randomPass = Math.floor(Math.random() * passwordType.length);
+//         str +=passwordType.substring(randomPass, randomPass + 1);
+//     }
+//     return str; 
 // }
- 
+
 //Function to create a HTML table elements and append it to the <table>
     async function createTable(){
         for (let i=0; i<details.length -1;i++) {

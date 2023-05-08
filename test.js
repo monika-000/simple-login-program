@@ -73,3 +73,14 @@ function getRandomMixed(){
     });
     return str;
 }
+
+let btnNum = document.getElementsById("genNum");
+let btnAlphanum = document.getElementsById("genAlphanum");
+let password =""
+
+btnNum.addEventListener("click", function(){
+    password = getRandomNumbers();
+});
+btnAlphanum.addEventListener("click", function(){
+    password = getRandomMixed();
+});
