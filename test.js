@@ -1,5 +1,5 @@
 
-else if(pathTwo =="/generate.html"){
+if(pathTwo =="/generate.html"){
     let btn = document.getElementsByClassName("generate");
     const mixed = "@!#$%^&*_+><?abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     const symbols = "@!#$%^&*_+><?";

@@ -43,6 +43,7 @@ else if(pathTwo == "/login.html"){
     btnLogin.addEventListener("click", function(){
         let user = document.getElementById("txtUName").value;
         let passw = document.getElementById("password").value;
+        debugger;
         readFile(user,passw);
     });
 
@@ -112,7 +113,7 @@ else if(pathTwo =="/generate.html"){
     let generateBtn = document.getElementsByClassName("generate");
     let btnReg = document.getElementById("register");
     let password =""
-    
+
     for(let i = 0; i < generateBtn.length; i++){
         generateBtn[i].addEventListener("click", function(){
             if(i == 0){
@@ -225,16 +226,16 @@ Less secure option as it uses Math.Random()*/
     }
 
  //Function to read from accounts.txt file
-async function readFile(){ 
-    [fileHandle] = await window.showOpenFilePicker();
-    const file = await fileHandle.getFile();
-    const contents = await file.text();
-    let lines = contents.split("\n"); 
-    let obj = {};
-    for (const i of lines) {  
-        let items = i.split(" ");
-            obj = {userField: items[0], passField: items[1]};
-            details.push(obj);
-        } 
-    }
+// async function readFile(){ 
+//     [fileHandle] = await window.showOpenFilePicker();
+//     const file = await fileHandle.getFile();
+//     const contents = await file.text();
+//     let lines = contents.split("\n"); 
+//     let obj = {};
+//     for (const i of lines) {  
+//         let items = i.split(" ");
+//             obj = {userField: items[0], passField: items[1]};
+//             details.push(obj);
+//         } 
+// }
 

@@ -9,6 +9,7 @@
     height: 40px;
     width: 180px;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 .generate:hover{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);;
@@ -17,5 +18,14 @@
     background-color: #023020;
     color:white;
     border-style: hidden;
-    margin-top: 20px;
+}
+#genNum{
+    border-style: solid;
+    border-color: #023020;
+    background-color:white;
+}
+#genAlphanum{
+    border-style: solid;
+    border-color: #023020;
+    background-color:white;
 }
