@@ -43,7 +43,6 @@ else if(pathTwo == "/login.html"){
     btnLogin.addEventListener("click", function(){
         let user = document.getElementById("txtUName").value;
         let passw = document.getElementById("password").value;
-        debugger;
         readFile(user,passw);
     });
 
@@ -112,9 +111,10 @@ else if(pathTwo =="/generate.html"){
         window.location.assign(path + "/register.html"); 
     });
 }
-// Logic for member screen
-else if(pathTwo == "/view.html"){
-    let memberName = sessionStorage.getItem("memberName")
+// Logic for Member screen
+else if(pathTwo == "/memberHome.html"){
+    let memberName = sessionStorage.getItem("memberName");
+    console.log(memberName)
     let btnShow = document.getElementById("show");
     btnShow.addEventListener("click", async function(){
         await readFile();
@@ -138,11 +138,10 @@ async function readFile(u, p){
         obj = {userField: items[0], passField: items[1]};   
         details.push(obj); 
         if(u === obj.userField && p === obj.passField){
-            debugger;
-            alert("Welcome " + obj.userField);
+            //alert("Welcome " + obj.userField);
             sessionStorage.setItem("memberName", (obj.userField));
-            window.location.assign(path, "/memberHome.html");
-            return;
+            window.location.assign(path + "/memberHome.html");
+            return; 
         }
     } 
     return alert("Username or password incorect");
