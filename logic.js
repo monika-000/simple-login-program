@@ -114,6 +114,7 @@ else if(pathTwo =="/generate.html"){
 // Logic for Member screen
 else if(pathTwo == "/memberHome.html"){
     let memberName = sessionStorage.getItem("memberName");
+    document.getElementById("greeting").innerText = `Hello ${memberName}!`
     console.log(memberName)
     let btnShow = document.getElementById("show");
     btnShow.addEventListener("click", async function(){
