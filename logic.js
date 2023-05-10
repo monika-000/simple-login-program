@@ -11,18 +11,6 @@
  //Logic for Home screen
  if( pathTwo == "/home.html"){
     let btn = document.getElementsByTagName("button"); 
-    // btn[0].addEventListener("click", function(){
-    //     let searchTxt= document.getElementById("searchValue").value;
-    //     if(searchTxt == "Sign in" || searchTxt == "sign in"){
-    //         window.location.assign(path + "/login.html");
-    //     }
-    //     else if(searchTxt == "Sign up" || searchTxt == "sign up"){
-    //         window.location.assign(path + "/register.html");
-    //     }
-    //     else if(searchTxt == "View account details" || searchTxt == "view account details"){
-    //         window.location.assign(path + "/view.html");
-    //     }     
-    // }); 
     for(let i = 0; i<btn.length; i++){   
             btn[i].addEventListener("click", function(){
             if(i == 0){
@@ -31,9 +19,6 @@
             else if(i == 1){
                 window.location.assign(path + "/register.html");
             }
-            // else if(i == 3){
-            //     window.location.assign(path + "/view.html");
-            // }
         }); 
     } 
 }
@@ -65,7 +50,7 @@ else if(pathTwo == "/register.html"){
         if(isValid()){
            alert("Please fill in all the required fields");
         }
-       else{
+        else{
         
             await readFile();
             let text ="";
@@ -115,7 +100,6 @@ else if(pathTwo =="/generate.html"){
 else if(pathTwo == "/memberHome.html"){
     let memberName = sessionStorage.getItem("memberName");
     document.getElementById("greeting").innerText = `Hello ${memberName}!`
-    console.log(memberName)
     let btnShow = document.getElementById("show");
     btnShow.addEventListener("click", async function(){
         await readFile();
@@ -145,7 +129,7 @@ async function readFile(u, p){
             return; 
         }
     } 
-    return alert("Username or password incorect");
+    return alert("Incorect username or password");
 }
 //Function to save new user details to accounts.txt file
 async function saveFile(data){
@@ -211,17 +195,42 @@ Less secure option as it uses Math.Random()*/
 
 //Function to create a HTML table elements and append it to the <table>
     async function createTable(){
+        let tableHeaders = ["Username", "Password"]
         for (let i=0; i<details.length -1;i++) {
+            const tr = document.createElement("tr");
+            const table = document.getElementById("tbl");
+            if(i==0){
+                for(let j = 0; j<tableHeaders.length; j++){
+                    const th  = document.createElement("th");
+                    const node = document.createTextNode(tableHeaders[j]);
+                    th.appendChild(node);
+                    tr.appendChild(th);
+                    table.appendChild(tr);
+                    
+                }
+                continue;
+            }
             const td1 = document.createElement("td");
-            const node1 = document.createTextNode(details[i].userField)
+            const node1 = document.createTextNode(details[i-1].userField)
             td1.appendChild(node1);
             const td2 = document.createElement("td");
-            const node2 = document.createTextNode(details[i]. passField)
+            const node2 = document.createTextNode(details[i-1].passField)
             td2.appendChild(node2);
-            const tr =document.createElement("tr");
             tr.appendChild(td1);
             tr.appendChild(td2);
-            const table = document.getElementById("tbl");
             table.appendChild(tr);
-        }
+        } 
+    }
+//Function to read from accounts.txt file
+async function readFile(){ 
+    [fileHandle] = await window.showOpenFilePicker();
+    const file = await fileHandle.getFile();
+    const contents = await file.text();
+    let lines = contents.split("\n"); 
+    let obj = {};
+    for (const i of lines) {  
+        let items = i.split(" ");
+            obj = {userField: items[0], passField: items[1]};
+            details.push(obj);
+        } 
     }
