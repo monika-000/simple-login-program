@@ -108,13 +108,14 @@ else if(pathTwo == "/memberHome.html"){
 }
 
 //FUNCTIONS
-//Function to read from accounts.txt file. It take s two parameters: username and password form input elements
+//Function to read from accounts.txt file. It takes two optional parameters: username and password form input elements
 async function readFile(u, p){  
     [fileHandle] = await window.showOpenFilePicker();
     const file = await fileHandle.getFile();
     const contents = await file.text();
     let lines = contents.split("\n"); 
     let obj = {};
+    let loginPath = path +"/login.html"
     for (const i of lines) {  
         let items = i.split(" "); 
         for (let i=0; i<items.length; i++){
@@ -122,14 +123,17 @@ async function readFile(u, p){
         } 
         obj = {userField: items[0], passField: items[1]};   
         details.push(obj); 
-        if(u === obj.userField && p === obj.passField){
-            //alert("Welcome " + obj.userField);
-            sessionStorage.setItem("memberName", (obj.userField));
-            window.location.assign(path + "/memberHome.html");
-            return; 
+        if(url == loginPath){
+            if(u === obj.userField && p === obj.passField){
+                sessionStorage.setItem("memberName", (obj.userField));
+                window.location.assign(path + "/memberHome.html");
+                return; 
+            }
         }
     } 
-    return alert("Incorect username or password");
+    if(url == loginPath){
+        return alert("Incorect username or password");
+    } 
 }
 //Function to save new user details to accounts.txt file
 async function saveFile(data){
@@ -219,18 +223,5 @@ Less secure option as it uses Math.Random()*/
             tr.appendChild(td1);
             tr.appendChild(td2);
             table.appendChild(tr);
-        } 
-    }
-//Function to read from accounts.txt file
-async function readFile(){ 
-    [fileHandle] = await window.showOpenFilePicker();
-    const file = await fileHandle.getFile();
-    const contents = await file.text();
-    let lines = contents.split("\n"); 
-    let obj = {};
-    for (const i of lines) {  
-        let items = i.split(" ");
-            obj = {userField: items[0], passField: items[1]};
-            details.push(obj);
         } 
     }
