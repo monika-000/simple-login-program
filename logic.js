@@ -57,17 +57,18 @@ else if(pathTwo == "/register.html"){
             let username = document.getElementById("txtUName").value;
             let password = document.getElementById("password").value;
             details.push({userField: username, passField: password});
-            //details.filter(function (details) {return details != undefined;}); 
+
             for (const i of details) {
                     text += i.userField  + " " + i.passField +"\n"; 
                 }
                    
             await saveFile(text);
+
             //Adds 2s delay before exiting the registration page
             await setTimeout( function(){
                 let url = window.location.pathname; 
                 let lastIndex = url.lastIndexOf("/"); 
-                let path = url.substring(0, lastIndex)  
+                let path = url.substring(0, lastIndex);  
                 window.location.assign(path + "/home.html");
             }, 2000); 
         }
@@ -77,7 +78,7 @@ else if(pathTwo == "/register.html"){
 else if(pathTwo =="/generate.html"){
     let generateBtn = document.getElementsByClassName("generate");
     let btnReg = document.getElementById("register");
-    let password =""
+    let password ="";
 
     for(let i = 0; i < generateBtn.length; i++){
         generateBtn[i].addEventListener("click", function(){
@@ -99,7 +100,7 @@ else if(pathTwo =="/generate.html"){
 // Logic for Member screen
 else if(pathTwo == "/memberHome.html"){
     let memberName = sessionStorage.getItem("memberName");
-    document.getElementById("greeting").innerText = `Hello ${memberName}!`
+    document.getElementById("greeting").innerText = `Hello ${memberName}!`;
     let btnShow = document.getElementById("show");
     btnShow.addEventListener("click", async function(){
         await readFile();
@@ -115,7 +116,7 @@ async function readFile(u, p){
     const contents = await file.text();
     let lines = contents.split("\n"); 
     let obj = {};
-    let loginPath = path +"/login.html"
+    let loginPath = path +"/login.html";
     for (const i of lines) {  
         let items = i.split(" "); 
         for (let i=0; i<items.length; i++){
@@ -198,30 +199,30 @@ Less secure option as it uses Math.Random()*/
 // }
 
 //Function to create a HTML table elements and append it to the <table>
-    async function createTable(){
-        let tableHeaders = ["Username", "Password"]
-        for (let i=0; i<details.length -1;i++) {
-            const tr = document.createElement("tr");
-            const table = document.getElementById("tbl");
-            if(i==0){
-                for(let j = 0; j<tableHeaders.length; j++){
-                    const th  = document.createElement("th");
-                    const node = document.createTextNode(tableHeaders[j]);
-                    th.appendChild(node);
-                    tr.appendChild(th);
-                    table.appendChild(tr);
-                    
-                }
-                continue;
+async function createTable(){
+    let tableHeaders = ["Username", "Password"]
+    for (let i=0; i<details.length -1;i++){
+        const tr = document.createElement("tr");
+        const table = document.getElementById("tbl");
+        if(i==0){
+            for(let j = 0; j<tableHeaders.length; j++){
+                const th  = document.createElement("th");
+                const node = document.createTextNode(tableHeaders[j]);
+                th.appendChild(node);
+                tr.appendChild(th);
+                table.appendChild(tr);
+                
             }
-            const td1 = document.createElement("td");
-            const node1 = document.createTextNode(details[i-1].userField)
-            td1.appendChild(node1);
-            const td2 = document.createElement("td");
-            const node2 = document.createTextNode(details[i-1].passField)
-            td2.appendChild(node2);
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            table.appendChild(tr);
-        } 
-    }
+            continue;
+        }
+        const td1 = document.createElement("td");
+        const node1 = document.createTextNode(details[i-1].userField);
+        td1.appendChild(node1);
+        const td2 = document.createElement("td");
+        const node2 = document.createTextNode(details[i-1].passField);
+        td2.appendChild(node2);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        table.appendChild(tr);
+    } 
+}
